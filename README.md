@@ -1,1 +1,1 @@
-# Study_RPG
+https://www.figma.com/design/213LFobOxjkzPkF8LvBC7R/Sweets_sarch?node-id=0-1&p=f&t=P0uIwh2AolGxNGOy-0
