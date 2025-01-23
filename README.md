@@ -1,4 +1,7 @@
 
+https://i.gyazo.com/b1a7328aa83ae0152ea2bf1f342acc36.png
+
+
 https://www.figma.com/design/213LFobOxjkzPkF8LvBC7R/Sweets_sarch?node-id=0-1&p=f&t=P0uIwh2AolGxNGOy-0
 # Sweets_search
 ■サービス概要
