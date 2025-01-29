@@ -1,0 +1,44 @@
+header {
+  display: flex;
+  justify-content: space-between; /* ヘッダーの要素を両端に配置 */
+  align-items: center; /* ヘッダーの中央に配置 */
+  padding: 20px;
+  background-color: #fffacd; /* ヘッダーの背景色 */
+}
+
+span {
+  margin: 0; /* マージンをリセット */
+  flex: 1;
+  text-align: center;
+}
+
+nav {
+  margin-left: auto;
+}
+
+nav ul {
+  list-style: none; /* リストのスタイルを削除 */
+  margin: 0;
+  padding: 0;
+  display: flex; /* 横並びにする */
+  background-color: #fffacd;
+}
+
+nav ul li {
+  margin-left: 20px; /* リストアイテムの間隔 */
+  background-color: #fffacd;
+}
+
+nav ul li a {
+  text-decoration: none; /* 下線を削除 */
+  color: #000; /* テキスト色 */
+}
+
+.pink-text {
+  color: #ff1493;
+  font-size: 40px;
+}
+
+.navbar {
+  background-color: #fffacd !important; /* 薄い黄色に変更 */
+}
