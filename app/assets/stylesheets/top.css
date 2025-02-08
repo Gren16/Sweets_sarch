@@ -3,3 +3,10 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
+
+#map {
+  height: 100%;
+  padding: 250px;
+  margin: 100px;
+}
+

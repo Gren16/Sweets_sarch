@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TOP画面</title>
   <%= stylesheet_link_tag "top", media: "all" %>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAP_API_KEY"] %>&libraries=places"></script>
 </head>
 <body>
   <% if logged_in? %>
@@ -12,8 +13,79 @@
   <% else %>
     <%= render "shared/before_login_header" %>
   <% end %>
-  <main>
-    <!-- メインコンテンツはここに追加 -->
-  </main>
+  <div id="map"></div>
+  <script>
+    let map;
+    let service;
+    let infowindow;
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 35.681, lng:139.767 }, // 初期位置（東京駅）
+        zoom: 13
+      });
+
+      // 現在地を取得
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          const lat = position.coords.latitude; // 緯度
+          const lon = position.coords.longitude; // 経度
+          const currentLocation = new google.maps.LatLng(lat, lon);
+
+          // 地図の中心を現在地に変更
+          map.setCenter(currentLocation);
+
+          // スイーツ店を検索
+          findSweets(currentLocation);
+        }, () => {
+          alert("位置情報の取得に失敗しました");
+        });
+      } else {
+        alert("このブラウザは位置情報に対応していません");
+      }
+    }
+
+    function findSweets(location) {
+      service = new google.maps.places.PlacesService(map);
+      const request = {
+        location: location,
+        radius: "1500",
+        types: ["cafe"],
+      };
+
+      service.nearbySearch(request, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          infowindow = new google.maps.InfoWindow();
+          for (let i = 0; i < results.length; i++) {
+          const place = results[i];
+          // マーカーを追加
+          const marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location,
+            title: place.name,
+          });
+
+          // マーカーをクリックしたときに情報ウィンドを表示
+          google.maps.event.addListener(marker, "click", (() => {
+            const phoneNumber = place.formatted_phone_number || "電話番号なし";
+            const address = place.formatted_address || "住所不明";
+            infowindow.setContent(`
+              <div>
+                <strong>${place.name}</strong><br>
+                電話番号: ${phoneNumber}<br>
+                住所: ${address}<br>
+              </div>
+            `);
+            infowindow.open(map, marker);
+          }));
+        }
+        } else {
+          console.error("スイーツ店の取得に失敗しました", status);
+        }
+      });
+    }
+
+    initMap();
+  </script>
 </body>
 </html>
