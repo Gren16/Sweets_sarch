@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TOP画面</title>
   <%= stylesheet_link_tag "top", media: "all" %>
-  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAP_API_KEY"] %>&libraries=places"></script>
+  <script async src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAP_API_KEY"] %>&libraries=places&callback=initMap"></script>
 </head>
 <body>
   <% if logged_in? %>
@@ -19,7 +19,7 @@
     let service;
     let infowindow;
 
-    function initMap() {
+    async function initMap() {
       map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 35.681, lng:139.767 }, // 初期位置（東京駅）
         zoom: 13
@@ -49,20 +49,32 @@
       service = new google.maps.places.PlacesService(map);
       const request = {
         location: location,
-        radius: "1500",
+        radius: "5000",
         types: ["cafe"],
       };
 
       service.nearbySearch(request, (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          infowindow = new google.maps.InfoWindow();
+          const infowindow = new google.maps.InfoWindow();
+          const icons = {
+            "洋菓子": {
+              url: "https://iconbu.com/wp-content/uploads/2021/05/%E3%82%B1%E3%83%BC%E3%82%AD%E3%81%AE%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3.jpg",
+              size: new google.maps.Size(40, 40) // アイコンのサイズを指定
+            }
+          };
           for (let i = 0; i < results.length; i++) {
           const place = results[i];
+          const icon = icons["洋菓子"]; // アイコンを初期化
+
           // マーカーを追加
           const marker = new google.maps.Marker({
             map: map,
             position: place.geometry.location,
             title: place.name,
+            icon: {
+              url: icon.url,
+              scaledSize: icon.size // サイズを指定
+            }
           });
 
           // マーカーをクリックしたときに情報ウィンドを表示
@@ -83,9 +95,56 @@
           console.error("スイーツ店の取得に失敗しました", status);
         }
       });
+
+      const sweetsRequest = {
+        location: location,
+        radius: "5000",
+        keyword: "和菓子"
+      };
+
+      service.nearbySearch(sweetsRequest, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          const infowindow = new google.maps.InfoWindow();
+          const icons = {
+            "和菓子": {
+              url: "https://iconbu.com/wp-content/uploads/2023/01/%E3%81%84%E3%81%A1%E3%81%94%E5%A4%A7%E7%A6%8F.jpg",
+              size: new google.maps.Size(40, 40)
+            }
+          };
+
+          for (let i = 0; i < results.length; i++) {
+          const place = results[i];
+          const icon = icons["和菓子"];
+
+          const marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location,
+            title: place.name,
+            icon: {
+              url: icon.url,
+              scaledSize: icon.size
+            }
+          });
+
+            google.maps.event.addListener(marker, "click", (() => {
+              const phoneNumber = place.formatted_phone_number || "電話番号なし";
+              const address = place.formatted_address || "住所不明";
+              infowindow.setContent(`
+                <div>
+                  <strong>${place.name}</strong><br>
+                  電話番号: ${phoneNumber}<br>
+                  住所: ${address}<br>
+                </div>
+              `);
+              infowindow.open(map, marker);
+            }));
+          }
+          } else {
+            console.error("スイーツ店の取得に失敗しました", status);
+          }
+        });
     }
 
-    initMap();
   </script>
 </body>
 </html>
