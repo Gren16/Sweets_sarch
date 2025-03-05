@@ -119,7 +119,7 @@
             if (status === google.maps.places.PlacesServiceStatus.OK) {
               const phone_number = details.formatted_phone_number ? details.formatted_phone_number : "電話番号は不明です";
               const address = details.formatted_address ? details.formatted_address : "住所は不明です";
-              const website = details.website ? `<a href="${details.website}" target="_blank">公式サイト</a>` : "公式サイトはありません";
+              const website = details.website ? `<a href="${sanitize(details.website)}" target="_blank" rel="noopener noreferrer">公式サイト</a>` : "公式サイトはありません";
               const infoWindowContent = `
                 <div>
                   <strong>${details.name}</strong><br>
@@ -154,7 +154,7 @@
     }
 
     function saveStoreToDatabase(storeData) {
-      const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+      const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
       fetch(`/create_store`, {
         method: "POST",
         headers: {
