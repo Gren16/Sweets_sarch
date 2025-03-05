@@ -14,21 +14,6 @@
     <%= render "shared/before_login_header" %>
   <% end %>
   <div id="map"></div>
-
-
-  <h2>店舗一覧</h2>
-  <ul id="store-list">
-    <% @stores.each do |store| %>
-      <li>
-        <strong><%= store.name %></strong><br>
-        住所: <%= store.address %><br>
-        電話番号: <%= store.phone_number %><br>
-      </li>
-    <% end %>
-  </ul>
-
-
-
   <script>
     let map;
     let service;
@@ -81,24 +66,6 @@
           const place = results[i];
           const icon = icons["洋菓子"]; // アイコンを初期化
 
-
-        google.maps.event.addListener(marker, "click", (() => {
-          service.getDetails({ placeId: place.place_id }, function(details, status) {
-            if (status === google.maps.places.PlacesServiceStatus.OK) {
-              const phone_number = details.formatted_phone_number ? details.formatted_phone_number : "電話番号は不明です";
-              const address = details.formatted_address ? details.formatted_address : "住所は不明です";
-              const website = details.website ? `<a href="${details.website}" target="_blank">公式サイト</a>` : "公式サイトはありません";
-              const infoWindowContent = `
-                <div>
-                  <strong>${details.name}</strong><br>
-                  電話番号: ${phone_number}<br>
-                  住所: ${address}<br>
-                  ${website}
-                </div>
-              `;
-              infowindow.setContent(infoWindowContent);
-              infowindow.open(map, marker);
-
           // マーカーを追加
           const marker = new google.maps.Marker({
             map: map,
@@ -107,7 +74,6 @@
             icon: {
               url: icon.url,
               scaledSize: icon.size // サイズを指定
-
             }
           });
 
@@ -152,28 +118,6 @@
             }
           };
 
-
-    function saveStoreToDatabase(storeData) {
-      const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-      fetch(`/create_store`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": csrfToken
-        },
-        body: JSON.stringify(storeData)
-      })
-      .then(response => {
-        if (response.ok) {
-          console.log(`${storeData.store.name}をStoresテーブルに保存しました`);
-        } else {
-          console.error("保存に失敗しました");
-        }
-      })
-      .catch(error => {
-        console.error("エラー:", error);
-      });
-
           for (let i = 0; i < results.length; i++) {
           const place = results[i];
           const icon = icons["和菓子"];
@@ -211,7 +155,6 @@
             }));
           }
       }});
-
     }
 
   </script>
