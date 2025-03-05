@@ -6,6 +6,7 @@
   <title>TOP画面</title>
   <%= stylesheet_link_tag "top", media: "all" %>
   <script async src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAP_API_KEY"] %>&libraries=places&callback=initMap"></script>
+  <meta name="csrf-token" content="<%= form_authenticity_token %>">
 </head>
 <body>
   <% if logged_in? %>
@@ -13,15 +14,26 @@
   <% else %>
     <%= render "shared/before_login_header" %>
   <% end %>
-  <div id="map"></div>
+  <div id="map" style="height: 500px; width: 100%;"></div>
+
+  <h2>店舗一覧</h2>
+  <ul id="store-list">
+    <% @stores.each do |store| %>
+      <li>
+        <strong><%= store.name %></strong><br>
+        住所: <%= store.address %><br>
+        電話番号: <%= store.phone_number %><br>
+      </li>
+    <% end %>
+  </ul>
+
   <script>
     let map;
     let service;
-    let infowindow;
 
-    async function initMap() {
+    function initMap() {
       map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 35.681, lng:139.767 }, // 初期位置（東京駅）
+        center: { lat: 35.681, lng: 139.767 }, // 初期位置（東京駅）
         zoom: 13
       });
 
@@ -47,116 +59,123 @@
 
     function findSweets(location) {
       service = new google.maps.places.PlacesService(map);
-      const request = {
-        location: location,
-        radius: "5000",
-        types: ["cafe"],
-      };
-
-      service.nearbySearch(request, (results, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          const infowindow = new google.maps.InfoWindow();
-          const icons = {
-            "洋菓子": {
-              url: "https://iconbu.com/wp-content/uploads/2021/05/%E3%82%B1%E3%83%BC%E3%82%AD%E3%81%AE%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3.jpg",
-              size: new google.maps.Size(40, 40) // アイコンのサイズを指定
-            }
-          };
-          for (let i = 0; i < results.length; i++) {
-          const place = results[i];
-          const icon = icons["洋菓子"]; // アイコンを初期化
-
-          // マーカーを追加
-          const marker = new google.maps.Marker({
-            map: map,
-            position: place.geometry.location,
-            title: place.name,
-            icon: {
-              url: icon.url,
-              scaledSize: icon.size // サイズを指定
-            }
-          });
-
-          // マーカーをクリックしたときに情報ウィンドを表示
-          google.maps.event.addListener(marker, "click", (() => {
-            service.getDetails({ placeId: place.place_id }, function(details, status) {
-              if (status === google.maps.places.PlacesServiceStatus.OK) {
-                const phone_number = details.formatted_phone_number ? details.formatted_phone_number : "電話番号は不明です";
-                const address = details.formatted_address ? details.formatted_address : "住所は不明です";
-                const website = details.website ? `<a href="${details.website}" target="_blank">公式サイト</a>` : "公式サイトはありません";
-                const infoWindowContent = `
-                  <div>
-                    <strong>${details.name}</strong><br>
-                    電話番号: ${phone_number}<br>
-                    住所: ${address}<br>
-                    ${website}
-                  </div>
-                `;
-                const infoWindow = new google.maps.InfoWindow({
-                  content: infoWindowContent
-                });
-                infoWindow.open(map, marker);
-              }
-            });
-          }));
+      const requests = [
+        {
+          location: location,
+          radius: "4500",
+          types: ["cafe"],
+        },
+        {
+          location: location,
+          radius: "4500",
+          keyword: "和菓子"
+        },
+        {
+          location: location,
+          radius: "4500",
+          keyword: "洋菓子"
         }
-      }});
+      ];
 
-      const sweetsRequest = {
-        location: location,
-        radius: "5000",
-        keyword: "和菓子"
-      };
-
-      service.nearbySearch(sweetsRequest, (results, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          const infowindow = new google.maps.InfoWindow();
-          const icons = {
-            "和菓子": {
-              url: "https://iconbu.com/wp-content/uploads/2023/01/%E3%81%84%E3%81%A1%E3%81%94%E5%A4%A7%E7%A6%8F.jpg",
-              size: new google.maps.Size(40, 40)
-            }
-          };
-
-          for (let i = 0; i < results.length; i++) {
-          const place = results[i];
-          const icon = icons["和菓子"];
-
-          const marker = new google.maps.Marker({
-            map: map,
-            position: place.geometry.location,
-            title: place.name,
-            icon: {
-              url: icon.url,
-              scaledSize: icon.size
-            }
-          });
-
-            google.maps.event.addListener(marker, "click", (() => {
-              service.getDetails({ placeId: place.place_id }, function(details, status) {
-                if (status === google.maps.places.PlacesServiceStatus.OK) {
-                  const phone_number = details.formatted_phone_number ? details.formatted_phone_number : "電話番号は不明です";
-                  const address = details.formatted_address ? details.formatted_address : "住所は不明です";
-                  const website = details.website ? `<a href="${details.website}" target="_blank">公式サイト</a>` : "公式サイトはありません";
-                  const infoWindowContent = `
-                    <div>
-                      <strong>${details.name}</strong><br>
-                      電話番号: ${phone_number}<br>
-                      住所: ${address}<br>
-                      ${website}
-                    </div>
-                  `;
-                  const infoWindow = new google.maps.InfoWindow({
-                    content: infoWindowContent
-                  });
-                  infoWindow.open(map, marker);
-                }
-              });
-            }));
+      requests.forEach(request => {
+        service.nearbySearch(request, (results, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            results.forEach(place => {
+              getStoreDetails(place.place_id);
+            });
+            displayMarkers(results, request.keyword || "洋菓子");
           }
-      }});
+        });
+      });
     }
 
+    function displayMarkers(results, type) {
+      const infowindow = new google.maps.InfoWindow();
+      const icons = {
+        "洋菓子": {
+          url: "https://iconbu.com/wp-content/uploads/2021/05/%E3%82%B1%E3%83%BC%E3%82%AD%E3%81%AE%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3.jpg",
+          size: new google.maps.Size(40, 40)
+        },
+        "和菓子": {
+          url: "https://iconbu.com/wp-content/uploads/2023/01/%E3%81%84%E3%81%A1%E3%81%94%E5%A4%A7%E7%A6%8F.jpg",
+          size: new google.maps.Size(40, 40)
+        }
+      };
+
+      results.forEach(place => {
+        const icon = icons[type];
+        const marker = new google.maps.Marker({
+          map: map,
+          position: place.geometry.location,
+          title: place.name,
+          icon: {
+            url: icon.url,
+            scaledSize: icon.size
+          }
+        });
+
+        google.maps.event.addListener(marker, "click", (() => {
+          service.getDetails({ placeId: place.place_id }, function(details, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+              const phone_number = details.formatted_phone_number ? details.formatted_phone_number : "電話番号は不明です";
+              const address = details.formatted_address ? details.formatted_address : "住所は不明です";
+              const website = details.website ? `<a href="${sanitize(details.website)}" target="_blank" rel="noopener noreferrer">公式サイト</a>` : "公式サイトはありません";
+              const infoWindowContent = `
+                <div>
+                  <strong>${details.name}</strong><br>
+                  電話番号: ${phone_number}<br>
+                  住所: ${address}<br>
+                  ${website}
+                </div>
+              `;
+              infowindow.setContent(infoWindowContent);
+              infowindow.open(map, marker);
+            }
+          });
+        }));
+      });
+    }
+
+    function getStoreDetails(placeId) {
+      service.getDetails({ placeId: placeId }, (place, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          const storeData = {
+            store: {
+              name: place.name,
+              address: place.formatted_address,
+              phone_number: place.formatted_phone_number || "電話番号は不明です",
+              web_site: place.website || null,
+              place_id: place.place_id
+            }
+          };
+          saveStoreToDatabase(storeData);
+        }
+      });
+    }
+
+    function saveStoreToDatabase(storeData) {
+      const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+      fetch(`/create_store`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": csrfToken
+        },
+        body: JSON.stringify(storeData)
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log(`${storeData.store.name}をStoresテーブルに保存しました`);
+        } else {
+          console.error("保存に失敗しました");
+        }
+      })
+      .catch(error => {
+        console.error("エラー:", error);
+      });
+    }
+
+    window.onload = initMap;
   </script>
 </body>
 </html>
