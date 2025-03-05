@@ -23,7 +23,11 @@
         <strong><%= store.name %></strong><br>
         住所: <%= store.address %><br>
         電話番号: <%= store.phone_number %><br>
-        <%= store.web_site ? link_to("公式サイト", store.web_site, target: "_blank") : "公式サイトはありません" %>
+        <% if store.web_site.present? %>
+          <%= link_to "公式サイト", sanitize(store.web_site), target: "_blank", rel: "noopener noreferrer" %>
+        <% else %>
+          公式サイトはありません
+        <% end %>
       </li>
     <% end %>
   </ul>
@@ -155,7 +159,7 @@
     }
 
     function saveStoreToDatabase(storeData) {
-      const csrfToken = document.querySelector("meta[name="csrf-token"]").getAttribute("content");
+      const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
       fetch(`/create_store`, {
         method: "POST",
         headers: {
