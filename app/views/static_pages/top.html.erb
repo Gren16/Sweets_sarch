@@ -16,16 +16,26 @@
   <% end %>
   <div id="map"></div>
 
-  <h2>店舗一覧</h2>
-  <ul id="store-list">
-    <% @stores.each do |store| %>
-      <li>
-        <strong><%= store.name %></strong><br>
-        住所: <%= store.address %><br>
-        電話番号: <%= store.phone_number %><br>
-      </li>
-    <% end %>
-  </ul>
+  <div class="container">
+    <h2 class="mb-4">店舗一覧</h2>
+    <div class="row">
+      <% @stores.each do |store| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= store.name %></h5>
+              <hr>
+              <p class="card-text">住所: <%= store.address %></p>
+              <p class="card-text">電話番号: <%= store.phone_number %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="d-flex justify-content-centent-center">
+      <%= paginate @stores, theme: "bootstrap-5" %>
+    <div>
+  </div>
 
   <script>
     let map;
