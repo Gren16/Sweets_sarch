@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
   protect_from_forgery with: :exception, unless: -> { request.format.json? }
 
   def top
-    @stores = Store.all
+    @stores = Store.all.page(params[:page]).per(10)
   end
 
   def create_store
