@@ -64,7 +64,7 @@ RSpec.describe User, type: :model do
       user = build(:user, name: nil)
 
       expect(user).not_to be_valid
-      expect(user.errors[:name]).to eq ["can't be blank"]
+      expect(user.errors[:name]).to eq [ "can't be blank" ]
     end
 
     it "nameが20文字以下になっていない場合バリデーションが機能してinvalidになるか" do
@@ -79,7 +79,7 @@ RSpec.describe User, type: :model do
       user = build(:user, email: nil)
 
       expect(user).not_to be_valid
-      expect(user.errors[:email]).to eq ["can't be blank"]
+      expect(user.errors[:email]).to eq [ "can't be blank" ]
     end
 
     it "emailが被った場合uniquenessのバリデーションが機能してinvalidになるか" do
@@ -87,7 +87,7 @@ RSpec.describe User, type: :model do
       user_with_another_user = build(:user, email: "test@example.com", password: "123456", password_confirmation: "123456")
 
       expect(user_with_another_user).not_to be_valid
-      expect(user_with_another_user.errors[:email]).to eq ["has already been taken"]
+      expect(user_with_another_user.errors[:email]).to eq [ "has already been taken" ]
     end
   end
 end
