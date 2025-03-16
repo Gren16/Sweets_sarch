@@ -7,11 +7,16 @@ class StaticPagesController < ApplicationController
   end
 
   def create_store
-    store = Store.new(store_params)
-    if store.save
-      render json: { message: "#{store.name}をStoresテーブルに保存しました" }, status: :created
+    store = Store.find_or_initialize_by(place_id: store_params[:place_id])
+    if store.new_record?
+      store.assign_attributes(store_params)
+      if store.save
+        render json: { message: "#{store.name}をStoresテーブルに保存しました" }, status: :created
+      else
+        render json: { errors: store.errors.full_messages }, status: :unprocessable_entity
+      end
     else
-      render json: { errors: store.errors.full_messages }, status: :unprocessable_entity
+      render json: { message: "#{store.name}は既に保存されています" }, status: :ok
     end
   end
 
