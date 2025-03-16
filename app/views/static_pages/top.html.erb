@@ -173,11 +173,12 @@
         },
         body: JSON.stringify(storeData)
       })
-      .then(response => {
-        if (response.ok) {
-          console.log(`${storeData.store.name}をStoresテーブルに保存しました`);
+      .then(response => response.json())
+      .then(data => {
+        if (data.errors) {
+          console.log("保存に失敗しました:", data.errors);
         } else {
-          console.error("保存に失敗しました");
+          console.error(data.message);
         }
       })
       .catch(error => {
