@@ -20,5 +20,5 @@ Rails.application.routes.draw do
 
   resources :stores
   resources :bookmarks, only: %i[create destroy]
-  get 'bookmarks', to: 'static_pages#bookmarks', as: 'bookmarks_stores'
+  get "bookmarks", to: "static_pages#bookmarks", as: "bookmarks_stores"
 end

@@ -1,5 +1,4 @@
 class BookmarksController < ApplicationController
-
   def create
     @store = Store.find(params[:store_id])
     current_user.bookmark(@store)
