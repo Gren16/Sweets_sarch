@@ -1,0 +1,30 @@
+ja:
+  helpers:
+    submit:
+      create: 登録
+      submit: 保存
+    label:
+      email: メールアドレス
+      password: パスワード
+  user_sessions:
+    new:
+      login: ログイン
+      to_register_page: 登録ページへ
+      password_forget: パスワードをお忘れの方はこちら
+  users:
+    new:
+      title: 新規ユーザー登録
+  header:
+    login: ログイン
+    logout: ログアウト
+    new_user_create: 新規ユーザー登録
+    bookmark_index: ブックマーク一覧
+  static_pages:
+    bookmarks:
+      title: ブックマーク一覧
+      no_result: ブックマーク中の店舗がありません
+  bookmarks:
+    create:
+      success: ブックマークしました
+    destroy:
+      success: ブックマークを外しました
