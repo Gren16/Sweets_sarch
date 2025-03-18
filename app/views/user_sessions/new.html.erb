@@ -10,10 +10,10 @@
         <div class="mb-3">
           <%= f.password_field :password, class: "form-control", placeholder: "パスワード" %>
         </div>
-        <%= f.submit "ログイン", class: "text-primary btn btn-primary btn-lg", style: "background-color: #ffeb3b; border-color: #ffeb3b;" %>
+        <%= f.submit t(".login"), class: "text-primary btn btn-primary btn-lg", style: "background-color: #ffeb3b; border-color: #ffeb3b;" %>
       <% end %>
       <div class="text-center">
-        <%= link_to "登録ページへ", new_user_path %>
+        <%= link_to t(".to_register_page"), new_user_path %>
         <%= link_to "パスワードをお忘れの方はこちら", "#" %>
       </div>
     </div>

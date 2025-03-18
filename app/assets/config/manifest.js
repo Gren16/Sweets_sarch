@@ -3,3 +3,4 @@
 //= link top.css
 //= link new.css
 //= link _header.css
+//= link bookmarks.css

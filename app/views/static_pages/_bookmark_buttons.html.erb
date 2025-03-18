@@ -1,0 +1,11 @@
+<div class="ms-auto">
+  <% if current_user && current_user.bookmark?(store) %>
+    <%= link_to bookmark_path(current_user.bookmarks.find_by(store_id: store.id)), id: "unbookmark-button-for-store-#{store.id}", data: { turbo_method: :delete } do %>
+      <i class="bi bi-star-fill"></i>
+    <% end %>
+  <% elsif current_user %>
+    <%= link_to bookmarks_path(store_id: store.id), id: "bookmark-button-for-store-#{store.id}", data: { turbo_method: :post } do %>
+      <i class="bi bi-star"></i>
+    <% end %>
+  <% end %>
+</div>
