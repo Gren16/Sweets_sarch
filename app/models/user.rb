@@ -6,4 +6,23 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :name, presence: true, length: { maximum: 20 }
   validates :email, presence: true, uniqueness: true
+
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmark_stores, through: :bookmarks, source: :store
+
+  def own?(object)
+    id == object&.user_id
+  end
+
+  def bookmark(store)
+    bookmark_stores << store
+  end
+
+  def unbookmark(store)
+    bookmark_stores.destroy(store)
+  end
+
+  def bookmark?(store)
+    bookmark_stores.include?(store)
+  end
 end

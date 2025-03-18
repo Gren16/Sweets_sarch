@@ -1,0 +1,34 @@
+<div class="container pt-3">
+  <%= stylesheet_link_tag "bookmarks", media: "all" %>
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1 d-flex justify-content-between align-items-center">
+      <h1 class="text-pink mb-4 mx-auto">Sweets_search</h1>
+      <%= link_to 'トップページに戻る', root_path, class: 'btn btn-primary mb-4' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+      <form>
+        <div class="input-group mb-3">
+          <input class="form-control" placeholder="検索ワード" type="search"/>
+          <div class="input-group-append">
+            <input type="submit" value="検索" class="btn btn-primary"/>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <% if @bookmark_stores.present? %>
+          <% @bookmark_stores.each do |store| %>
+            <%= render 'stores/store', store: store %>
+          <% end %>
+        <% else %>
+          <p><%= t(".no_result") %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

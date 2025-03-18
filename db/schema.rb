@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_16_123422) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_17_185647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "store_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_bookmarks_on_store_id"
+    t.index ["user_id", "store_id"], name: "index_bookmarks_on_user_id_and_store_id", unique: true
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
 
   create_table "stores", force: :cascade do |t|
     t.string "name"
@@ -22,7 +32,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_16_123422) do
     t.string "place_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["place_id"], name: "index_stores_on_place_id", unique: true
+    t.index ["user_id"], name: "index_stores_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -34,4 +46,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_16_123422) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
+
+  add_foreign_key "bookmarks", "stores"
+  add_foreign_key "bookmarks", "users"
+  add_foreign_key "stores", "users"
 end

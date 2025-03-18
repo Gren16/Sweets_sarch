@@ -1,0 +1,10 @@
+body {
+  background-color: #fffacd; /* 全体を黄色にする */
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.text-pink {
+  color: rgb(244, 143, 160);
+  font-size: 2.5rem;
+}

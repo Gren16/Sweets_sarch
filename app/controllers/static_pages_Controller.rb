@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
   protect_from_forgery with: :exception, unless: -> { request.format.json? }
 
   def top
-    @stores = Store.all.page(params[:page]).per(10)
+    @stores = Store.all.page(params[:page]).per(12)
   end
 
   def create_store
@@ -18,6 +18,10 @@ class StaticPagesController < ApplicationController
     else
       render json: { message: "#{store.name}は既に保存されています" }, status: :ok
     end
+  end
+
+  def bookmarks
+    @bookmark_stores = current_user.bookmark_stores.page(params[:page]).per(12)
   end
 
   private
