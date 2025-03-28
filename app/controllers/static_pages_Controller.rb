@@ -13,6 +13,7 @@ class StaticPagesController < ApplicationController
       if store.save
         render json: { message: "#{store.name}をStoresテーブルに保存しました" }, status: :created
       else
+        Rails.logger.error("保存に失敗しました: #{store.errors.full_messages.join(", ")}")
         render json: { errors: store.errors.full_messages }, status: :unprocessable_entity
       end
     else
@@ -27,6 +28,6 @@ class StaticPagesController < ApplicationController
   private
 
   def store_params
-    params.require(:store).permit(:name, :address, :phone_number, :web_site, :place_id)
+    params.require(:store).permit(:name, :address, :phone_number, :web_site, :place_id, :latitude, :longitude)
   end
 end

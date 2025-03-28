@@ -169,7 +169,9 @@
               address: place.formatted_address,
               phone_number: place.formatted_phone_number || "電話番号は不明です",
               web_site: place.website || null,
-              place_id: place.place_id
+              place_id: place.place_id,
+              latitude: place.geometry.location.lat(),
+              longitude: place.geometry.location.lng()
             }
           };
           saveStoreToDatabase(storeData);
@@ -192,7 +194,7 @@
         if (data.errors) {
           console.log("保存に失敗しました:", data.errors);
         } else {
-          console.error(data.message);
+          console.log(data.message);
         }
       })
       .catch(error => {

@@ -1,0 +1,16 @@
+<div class="col-md-4 mb-4">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="card-title"><%= bookmark.store.name %></h5>
+        <div class="form-check">
+          <%= check_box_tag "bookmark_ids[]", bookmark.id, false, class: "form-check-input", id: "bookmark_#{bookmark.id}" %>
+          <%= label_tag "bookmark_#{bookmark.id}", "選択", class: "form-check-label" %>
+        </div>
+      </div>
+      <hr>
+      <p class="card-text">住所: <%= bookmark.store.address %></p>
+      <p class="card-text">電話番号: <%= bookmark.store.phone_number %></p>
+    </div>
+  </div>
+</div>
