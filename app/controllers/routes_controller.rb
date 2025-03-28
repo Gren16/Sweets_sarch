@@ -28,7 +28,6 @@ class RoutesController < ApplicationController
     @bookmarks = current_user.bookmarks.includes(:store).where(id: session[:route_bookmarks])
     if @bookmarks.blank?
       redirect_to bookmarks_stores_path, alert: "ルートを作成するためのブックマークがありません。"
-      return
     end
   end
 
