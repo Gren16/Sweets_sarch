@@ -43,4 +43,3 @@ class RoutesController < ApplicationController
     head :ok
   end
 end
-

@@ -22,7 +22,7 @@
 
     <%= javascript_tag do %>
       function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
+        var map = new google.maps.Map(document.getElementById("map"), {
           zoom: 12,
           center: {lat: <%= @bookmarks.first.store.latitude %>, lng: <%= @bookmarks.first.store.longitude %>}
         });
@@ -58,7 +58,7 @@
               title: "現在地"
             });
 
-            currentLocationMarker.addListener('click', () => {
+            currentLocationMarker.addListener("click", () => {
               infoWindow.setContent("現在地");
               infoWindow.open(map, currentLocationMarker);
             });
@@ -70,7 +70,7 @@
               title: "<%= @bookmarks.last.store.name %>"
             });
 
-            storeMarker.addListener('click', () => {
+            storeMarker.addListener("click", () => {
               infoWindow.setContent("<%= @bookmarks.last.store.name %>");
               infoWindow.open(map, storeMarker);
             });
@@ -133,10 +133,10 @@
             return response.json();
           })
           .then(data => {
-            console.log('Route deleted:', data);
+            console.log("Route deleted:", data);
           })
           .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
+            console.error("There was a problem with the fetch operation:", error);
           });
       });
     <% end %>
@@ -145,22 +145,22 @@
   <% end %>
 
   <script>
-    window.addEventListener('load', () => {
-      fetch('<%= reset_session_routes_path %>', {
-        method: 'POST',
+    window.addEventListener("load", () => {
+      fetch("<%= reset_session_routes_path %>", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify({ /* Add necessary parameters here if any */ })
+        body: JSON.stringify({})
       }).then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         return response.json();
       }).then(data => {
-        console.log('Session reset:', data);
+        console.log("Session reset:", data);
       }).catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
+        console.error("There was a problem with the fetch operation:", error);
       });
     });
   </script>
