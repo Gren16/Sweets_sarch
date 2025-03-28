@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag "top", media: "all" %>
+</head>
+<body>
+  <% if logged_in? %>
+    <%= render "shared/header" %>
+  <% else %>
+    <%= render "shared/before_login_header" %>
+  <% end %>
+  <div class="container pt-3">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="mb-4 text-center">ルート作成</h1>
+        <%= form_with url: routes_path, method: :post do %>
+          <div class="row">
+            <% @bookmarks.each do |bookmark| %>
+              <%= render "stores/bookmarks", bookmark: bookmark %>
+            <% end %>
+            <div class="text-center mt-4">
+              <%= submit_tag "ルートを作成", class: "btn btn-primary" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="d-flex justify-content-centent-center">
+      <%= paginate @bookmarks, theme: "bootstrap-5" %>
+    </div>
+  </div>
+</body>
+</html>
