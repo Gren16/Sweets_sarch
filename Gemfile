@@ -19,11 +19,13 @@ gem "cssbundling-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
-gem "sorcery", "0.16.3"
+gem "sorcery", "0.17.0"
 
 gem "kaminari", "1.2.2"
 
 gem "bootstrap5-kaminari-views"
+
+gem "rack-cors"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
