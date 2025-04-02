@@ -9,9 +9,6 @@ class User < ApplicationRecord
 
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_stores, through: :bookmarks, source: :store
-  has_many :authentications, dependent: :destroy
-  accepts_nested_attributes_for :authentications
-
 
   def own?(object)
     id == object&.user_id
