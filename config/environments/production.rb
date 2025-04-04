@@ -104,8 +104,9 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   config.hosts << "sweets-sarch.net"
   config.hosts << "www.sweets-sarch-1.net"
+  config.hosts << "sweets-sarch-1.onrender.com"
 
-  config.action_mailer.default_url_options = { protocol: "https", host: "www.sweets-sarch-1.net" }
+  config.action_mailer.default_url_options = { protocol: "https", host: "sweets-sarch-1.onrender.com" }
     config.action_mailer.raise_delivery_errors = true
 
     config.action_mailer.delivery_method = :smtp
@@ -113,7 +114,7 @@ Rails.application.configure do
     config.action_mailer.smtp_settings = {
       port: 587,
       addresses: "smtp.gmail.com",
-      domain: "www.sweets-sarch-1.net",
+      domain: "sweets-sarch-1.onrender.com",
       user_name: ENV["GMAIL_USERNAME"],
       password: ENV["GMAIL_PASSWORD"],
       authentication: :plain,
