@@ -1,4 +1,4 @@
 sorcery:
     GOOGLE_CALLBACK_URL: "https://sweets-sarch.net//oauth/callback?provider=google"
 default_url_options:
-    host: "sweets-sarch-1.onrender.com"
+    host: "sweets-sarch.net"
