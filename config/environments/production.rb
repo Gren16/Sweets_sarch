@@ -105,7 +105,7 @@ Rails.application.configure do
   config.hosts << "sweets-sarch.net"
   config.hosts << "www.sweets-sarch-1.net"
 
-  config.action_mailer.default_url_options = { protocol: "https", host: "https://sweets-sarch.net" }
+  config.action_mailer.default_url_options = { protocol: "https", host: "sweets-sarch.net" }
     config.action_mailer.raise_delivery_errors = true
 
     config.action_mailer.delivery_method = :smtp
