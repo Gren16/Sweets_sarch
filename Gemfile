@@ -47,6 +47,8 @@ gem "google_places"
 
 gem "rails-i18n", "~> 7.0.0"
 
+gem "draper", "4.0.2"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 group :development, :test do
@@ -65,6 +67,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "letter_opener_web", "2.0.0"
 end
 
 group :test do
