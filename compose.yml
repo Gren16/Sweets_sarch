@@ -38,6 +38,7 @@ services:
     ports:
       - "1080:1080"
       - "1025:25"
+      - "587:587"
 volumes:
   bundle_data:
   postgresql_data:
