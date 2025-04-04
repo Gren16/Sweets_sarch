@@ -113,7 +113,7 @@ Rails.application.configure do
     config.action_mailer.smtp_settings = {
       port: 587,
       addresses: "smtp.gmail.com",
-      domain: "gmail.com",
+      domain: "sweets-sarch-1.onrender.com",
       user_name: ENV["GMAIL_USERNAME"],
       password: ENV["GMAIL_PASSWORD"],
       authentication: :plain,
