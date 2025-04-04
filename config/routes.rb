@@ -33,7 +33,6 @@ Rails.application.routes.draw do
   get "oauth/callback" => "oauths#callback"
   get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
 
-  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
-
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   resources :password_resets, only: %i[new create edit update]
 end

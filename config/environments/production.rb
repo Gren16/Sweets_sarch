@@ -105,7 +105,7 @@ Rails.application.configure do
   config.hosts << "sweets-sarch.net"
   config.hosts << "www.sweets-sarch-1.net"
 
-  config.action_mailer.default_url_options = { protocol: "https", host: "https://sweets-sarch.net"}
+  config.action_mailer.default_url_options = { protocol: "https", host: "https://sweets-sarch.net" }
 
   config.action_mailer.delivery_method = :smtp
 
@@ -113,7 +113,7 @@ Rails.application.configure do
     port: 587,
     addresses: "smtp.gmail.com",
     domain: "gmail.com",
-    user_name: ENV["GMAIL_ADDRESS"],
+    user_name: ENV["GMAIL_USERNAME"],
     password: ENV["GMAIL_PASSWORD"],
     authentication: :plain,
     enable_starttls_auto: true
