@@ -33,10 +33,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-  smtp:
-    image: namshi/smtp
-    ports:
-      - "587:587"
 volumes:
   bundle_data:
   postgresql_data:
