@@ -5,6 +5,6 @@ class Store < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
 
   def self.ransackable_attributes(auth_object = nil)
-    ["address", "created_at", "id", "latitude", "longitude", "name", "phone_number", "place_id", "updated_at", "user_id", "web_site"]
+    [ "address", "created_at", "id", "latitude", "longitude", "name", "phone_number", "place_id", "updated_at", "user_id", "web_site" ]
   end
 end
