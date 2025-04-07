@@ -6,6 +6,12 @@ ja:
     label:
       email: メールアドレス
       password: パスワード
+  defaults:
+    create: 作成
+    post: 投稿
+    search_word: 検索ワード
+    delete_confirm: 削除しますか？
+    flash_message:
   user_sessions:
     new:
       login: ログイン

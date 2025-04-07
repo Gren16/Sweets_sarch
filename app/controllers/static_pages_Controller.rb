@@ -3,7 +3,8 @@ class StaticPagesController < ApplicationController
   protect_from_forgery with: :exception, unless: -> { request.format.json? }
 
   def top
-    @stores = Store.all.page(params[:page]).per(12)
+    @q = Store.ransack(params[:q])
+    @stores = @q.result(distinct: true).page(params[:page]).per(12)
   end
 
   def create_store
@@ -22,7 +23,8 @@ class StaticPagesController < ApplicationController
   end
 
   def bookmarks
-    @bookmark_stores = current_user.bookmark_stores.page(params[:page]).per(12)
+    @q = current_user.bookmark_stores.ransack(params[:q])
+    @bookmark_stores = @q.result(distinct: true).page(params[:page]).per(12)
   end
 
   private
