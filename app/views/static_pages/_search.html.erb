@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-lg-10 offset-lg-1">
+    <%= search_form_for q, url: url, method: :get, html: { class: "form-inline" } do |f| %>
+      <div class="form-group">
+        <%= f.label :name_cont, "店名" %>
+        <%= f.search_field :name_cont, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :address_cont, "住所" %>
+        <%= f.search_field :address_cont, class: "form-control" %>
+      </div>
+      <div class="d-flex justify-content-center w-100">
+        <%= f.submit "検索", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

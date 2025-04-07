@@ -11,18 +11,9 @@
       <%= link_to "ルートを作成する", new_route_path, class: "btn btn-secondary mb-4" %>
     </div>
   </div>
-  <div class="row">
-    <div class="col-lg-10 offset-lg-1">
-      <form>
-        <div class="input-group mb-3">
-          <input class="form-control" placeholder="検索ワード" type="search"/>
-          <div class="input-group-append">
-            <input type="submit" value="検索" class="btn btn-primary"/>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
+
+  <%= render "search", q: @q, url: bookmarks_path %>
+
   <div class="row">
     <div class="col-12">
       <div class="row">
