@@ -186,7 +186,7 @@ GEM
       letter_opener (~> 1.7)
       railties (>= 5.2)
       rexml
-    logger (1.6.5)
+    logger (1.7.0)
     loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -198,7 +198,7 @@ GEM
     marcel (1.0.4)
     matrix (0.4.2)
     mini_mime (1.1.5)
-    minitest (5.25.4)
+    minitest (5.25.5)
     msgpack (1.7.5)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
@@ -299,7 +299,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.2.1)
-    ransack (4.2.1)
+    ransack (4.3.0)
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n
@@ -441,7 +441,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 7.2.2, >= 7.2.2.1)
   rails-i18n (~> 7.0.0)
-  ransack (= 4.2.1)
+  ransack (= 4.3.0)
   rspec-rails
   rubocop-rails-omakase
   selenium-webdriver
