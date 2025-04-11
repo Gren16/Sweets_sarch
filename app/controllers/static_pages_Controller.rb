@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
-  skip_before_action :require_login, only: %i[top create_store]
+  skip_before_action :require_login, only: %i[top create_store autocomplete]
   protect_from_forgery with: :exception, unless: -> { request.format.json? }
 
   def top
@@ -25,6 +25,17 @@ class StaticPagesController < ApplicationController
   def bookmarks
     @q = current_user.bookmark_stores.ransack(params[:q])
     @bookmark_stores = @q.result(distinct: true).page(params[:page]).per(12)
+  end
+
+  def autocomplete
+    if params[:q].blank?
+      render json: []
+      return
+    end
+
+    @q = Store.ransack(params[:q])
+    @stores = @q.result(distinct: true).limit(10)
+    render json: @stores.as_json(only: [:id, :name, :address])
   end
 
   private
