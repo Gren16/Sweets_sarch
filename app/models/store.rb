@@ -4,7 +4,11 @@ class Store < ApplicationRecord
   belongs_to :user, optional: true
   has_many :bookmarks, dependent: :destroy
 
+  def self.ransackable_associations(auth_object = nil)
+    ["bookmarks", "user"]
+  end
+
   def self.ransackable_attributes(auth_object = nil)
-    [ "address", "created_at", "id", "latitude", "longitude", "name", "phone_number", "place_id", "updated_at", "user_id", "web_site" ]
+    ["name", "address", "phone_number", "latitude", "longitude", "place_id", "web_site"]
   end
 end

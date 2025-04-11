@@ -4,3 +4,4 @@
 //= link new.css
 //= link _header.css
 //= link bookmarks.css
+//= link autocomplete.css
