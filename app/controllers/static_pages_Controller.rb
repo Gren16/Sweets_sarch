@@ -35,7 +35,7 @@ class StaticPagesController < ApplicationController
 
     @q = Store.ransack(params[:q])
     @stores = @q.result(distinct: true).limit(10)
-    render json: @stores.as_json(only: [:id, :name, :address])
+    render json: @stores.as_json(only: [ :id, :name, :address ])
   end
 
   private
