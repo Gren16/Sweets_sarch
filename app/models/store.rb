@@ -5,10 +5,10 @@ class Store < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
 
   def self.ransackable_associations(auth_object = nil)
-    ["bookmarks", "user"]
+    [ "bookmarks", "user" ]
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["name", "address", "phone_number", "latitude", "longitude", "place_id", "web_site"]
+    [ "name", "address", "phone_number", "latitude", "longitude", "place_id", "web_site" ]
   end
 end
