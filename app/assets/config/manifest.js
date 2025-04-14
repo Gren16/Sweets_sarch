@@ -5,3 +5,5 @@
 //= link _header.css
 //= link bookmarks.css
 //= link autocomplete.css
+//= link terms.css
+//= link _footer.css

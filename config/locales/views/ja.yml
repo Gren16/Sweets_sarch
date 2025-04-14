@@ -34,3 +34,5 @@ ja:
       success: ブックマークしました
     destroy:
       success: ブックマークを外しました
+  footer:
+    terms: 利用規約
