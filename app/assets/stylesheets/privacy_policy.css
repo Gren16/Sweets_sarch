@@ -1,0 +1,59 @@
+body {
+  background-color: #fffacd; /* 全体を黄色にする */
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.term-wrapper {
+  max-width: 6000px;
+  margin: 50px;
+  padding: 0px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.m-policy__header h1 {
+  font-size: 24px;
+  padding: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.m-policy__content h2 {
+  font-size: 20px;
+  margin-top: 20px;
+  color: #444;
+}
+
+.m-policy__content ol {
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.m-policy__content li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.m-policy__content p {
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.m-policy__body-main {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.m-policy__body-main ol {
+  margin-left: 20px;
+}
+
+.m-policy__body-main li {
+  margin-bottom: 5px;
+}
