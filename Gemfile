@@ -28,6 +28,10 @@ gem "bootstrap5-kaminari-views"
 gem "rack-cors"
 
 gem "meta-tags"
+
+gem "high_voltage"
+
+gem "haml-rails", "~> 2.0"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
