@@ -1,0 +1,55 @@
+body {
+  background-color: #fffacd; /* 全体を黄色にする */
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.m-policy__title {
+  font-size: 24px;
+  padding: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.term-wrapper {
+  max-width: 6000px;
+  margin: 50px;
+  padding: 0px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.m-policy__body-container {
+  font-size: 13px;
+  line-height: 1.8;
+  text-align: center;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.btn-basic {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff; /* 青色 */
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-basic:hover {
+  background-color: #0056b3; /* ホバー時の濃い青 */
+  transform: scale(1.05); /* 拡大アニメーション */
+}
+
+.btn-basic:active {
+  background-color: #003f7f; /* アクティブ時のさらに濃い青 */
+  transform: scale(0.95); /* 押し込みアニメーション */
+}

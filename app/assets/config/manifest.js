@@ -8,3 +8,4 @@
 //= link terms.css
 //= link _footer.css
 //= link privacy_policy.css
+//= link contact.css
