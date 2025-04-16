@@ -14,7 +14,7 @@
     <%= render "shared/before_login_header" %>
   <% end %>
 
-  <h1 class="mb-4 text-center">最短ルートの交通機関表示</h1>
+  <h1 class="mb-4 text-transportation">最短ルートの交通機関表示</h1>
 
   <% if @bookmarks.present? %>
     <div id="map"></div>
@@ -114,9 +114,9 @@
       function displayFastestRoute(result, mode) {
         const route = result.routes[0].legs[0];
         const fastestRouteInfo = `
-          <h2>一番早い交通機関: ${mode === "DRIVING" ? "車" : mode === "WALKING" ? "徒歩" : "公共交通機関"}</h2>
-          <p>所要時間: ${route.duration.text}</p>
-          <p>距離: ${route.distance.text}</p>
+          <h2 class="transportation">一番早い交通機関: ${mode === "DRIVING" ? "車" : mode === "WALKING" ? "徒歩" : "公共交通機関"}</h2>
+          <p class="Timerequired">所要時間: ${route.duration.text}</p>
+          <p class="distance">距離: ${route.distance.text}</p>
         `;
         const transportationDiv = document.getElementById("transportation");
         transportationDiv.innerHTML = fastestRouteInfo;
