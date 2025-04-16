@@ -39,11 +39,12 @@ nav ul li a {
   font-family: "Verdana", sans-serif;
   font-weight: bold;
   font-style: italic;
-  text-align: center;
   background: linear-gradient(90deg, #ff7eb3, #ff758c);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  position: relative;
+  left: 70px;
 }
 
 .navbar {
