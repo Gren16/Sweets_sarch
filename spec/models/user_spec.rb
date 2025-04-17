@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
         user = build(:user, password: "12345", password_confirmation: "123456")
         user.password = "12345"
         expect(user).not_to be_valid
-        expect(user.errors[:password]).to include("is too short (minimum is 6 characters)")
+        expect(user.errors[:password]).to include("は6文字以上で入力してください")
       end
 
       it "passwordが6文字以上の場合、有効になる" do
@@ -35,7 +35,7 @@ RSpec.describe User, type: :model do
         user = create(:user, password: "123456", password_confirmation: "123456")
         user.password = "12345"
         expect(user).not_to be_valid
-        expect(user.errors[:password]).to include("is too short (minimum is 6 characters)")
+        expect(user.errors[:password]).to include("は6文字以上で入力してください")
       end
 
       it "passwordが6文字以上の場合、有効になる" do
@@ -50,21 +50,21 @@ RSpec.describe User, type: :model do
       user = build(:user, password: "password123", password_confirmation: "different_password")
 
       expect(user).not_to be_valid
-      expect(user.errors[:password_confirmation]).to include("doesn't match Password")
+      expect(user.errors[:password_confirmation]).to include("とパスワードの入力が一致しません")
     end
 
     it "password_confirmationが空の場合バリデーションが機能してinvalidになるか" do
       user = build(:user, password: "password123", password_confirmation: nil)
 
       expect(user).not_to be_valid
-      expect(user.errors[:password_confirmation]).to include("can't be blank")
+      expect(user.errors[:password_confirmation]).to include("を入力してください")
     end
 
     it "nameが空の場合バリデーションが機能してinvalidになるか" do
       user = build(:user, name: nil)
 
       expect(user).not_to be_valid
-      expect(user.errors[:name]).to eq [ "can't be blank" ]
+      expect(user.errors[:name]).to eq [ "を入力してください" ]
     end
 
     it "nameが20文字以下になっていない場合バリデーションが機能してinvalidになるか" do
@@ -72,14 +72,14 @@ RSpec.describe User, type: :model do
       user = build(:user, name: long_name)
 
       expect(user).not_to be_valid
-      expect(user.errors[:name]).to include("is too long (maximum is 20 characters)")
+      expect(user.errors[:name]).to include("は20文字以内で入力してください")
     end
 
     it "emailが空の場合バリデーションが機能してinvalidになるか" do
       user = build(:user, email: nil)
 
       expect(user).not_to be_valid
-      expect(user.errors[:email]).to eq [ "can't be blank" ]
+      expect(user.errors[:email]).to eq [ "を入力してください" ]
     end
 
     it "emailが被った場合uniquenessのバリデーションが機能してinvalidになるか" do
@@ -87,7 +87,7 @@ RSpec.describe User, type: :model do
       user_with_another_user = build(:user, email: "test@example.com", password: "123456", password_confirmation: "123456")
 
       expect(user_with_another_user).not_to be_valid
-      expect(user_with_another_user.errors[:email]).to eq [ "has already been taken" ]
+      expect(user_with_another_user.errors[:email]).to eq [ "はすでに存在します" ]
     end
   end
 end
