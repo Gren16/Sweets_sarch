@@ -3,6 +3,9 @@
   <div class="row">
     <div class="col_md-10 col-lg-8 mx-auto text-center">
       <h1 class="font-weight-bold">新規ユーザー登録</h1>
+      <div class="text">
+        <%= link_to "Googleアカウントで新規登録", auth_at_provider_path(provider: :google), class: "google-login" %>
+      </div>
       <%= form_with model: @user do |f| %>
         <div class="mb-3">
           <%= f.text_field :name, class: "form-control", placeholder: "ニックネーム" %>
@@ -16,10 +19,12 @@
         <div class="mb-3">
           <%= f.password_field :password_confirmation, class: "form-control", placeholder: "パスワード確認" %>
         </div>
-        <%= f.submit "登録", class: "text-primary btn btn-primary btn-lg", style: "background-color: #ffeb3b; border-color: #ffeb3b;" %>
+        <%= f.submit "登録", class: "text-primary btn btn-primary btn-lg", style: "background-color: #ffeb3b; border-color: #ffeb3b; margin: 30px" %>
       <% end %>
       </div>
     </div>
   </div>
 </div>
-<%= render "shared/footer" %>
+<div class="footer-css">
+  <%= render "shared/footer" %>
+</div>

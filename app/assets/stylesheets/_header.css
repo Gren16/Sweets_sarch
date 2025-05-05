@@ -43,8 +43,38 @@ nav ul li a {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  position: relative;
-  left: 70px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+
+  .navbar-toggler {
+    display: block; /* 狭い画面幅でボタンを表示 */
+    background-color: #fffacd;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .navbar-collapse {
+    display: none; /* デフォルトで非表示 */
+  }
+
+  .navbar-collapse.show {
+    display: flex;
+    flex-direction: column;
+    background-color: #fffacd;
+    width: 100%;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-nav .nav-item {
+    margin: 10px 0;
+  }
 }
 
 .navbar {

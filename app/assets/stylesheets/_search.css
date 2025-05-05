@@ -2,3 +2,48 @@
   margin: 30px;
   text-align: center;
 }
+
+.d-flex {
+  display: flex; /* Flexboxを適用 */
+  align-items: center; /* ボタンと入力フィールドを縦に中央揃え */
+  gap: 10px; /* 入力フィールドとボタンの間にスペースを追加 */
+}
+
+/* 入力フィールドのスタイル */
+.form-control {
+  flex-grow: 1; /* 入力フィールドを可能な限り広げる */
+  min-width: 0; /* フレックスアイテムの幅の最小値を設定 */
+  border-radius: 4px; /* 入力フィールドの角を丸くする */
+}
+
+/* 検索ボタンのスタイル */
+.search-button {
+  background-color: #007bff; /* ボタンの背景色（Bootstrapのプライマリ色） */
+  color: white; /* ボタンの文字色 */
+  border: none; /* ボタンの枠線を削除 */
+  padding: 8px 15px; /* ボタンの内側余白 */
+  border-radius: 4px; /* ボタンの角を丸くする */
+  cursor: pointer; /* カーソルをポインターに変更 */
+  display: flex; /* アイコンをボタン内で中央揃え */
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 10px;
+  right: 70px;
+}
+
+.search-button i {
+  font-size: 20px; /* アイコンのサイズ */
+}
+
+/* 自動補完結果のスタイル */
+.autocomplete-results {
+  list-style: none; /* リストスタイルを削除 */
+  padding: 0; /* 内側余白を削除 */
+  margin: 0; /* 外側余白を削除 */
+  border-radius: 4px; /* リストの角を丸くする */
+  max-height: 200px; /* 最大高さを指定 */
+  overflow-y: auto; /* 縦スクロールバーを表示 */
+  background-color: white; /* 背景色を白に設定 */
+  z-index: 1000; /* 他の要素より前面に表示 */
+}

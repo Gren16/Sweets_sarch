@@ -22,6 +22,16 @@ class StaticPagesController < ApplicationController
     end
   end
 
+  def show
+    store = Store.find_by(place_id: params[:id])
+
+    if store
+      render json: store, status: :ok
+    else
+      render json: { error: "店舗が見つかりませんでした" }, status: :not_found
+    end
+  end
+
   def bookmarks
     @q = current_user.bookmark_stores.ransack(params[:q])
     @bookmark_stores = @q.result(distinct: true).page(params[:page]).per(12)
