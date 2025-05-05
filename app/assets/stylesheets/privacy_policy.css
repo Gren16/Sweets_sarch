@@ -48,6 +48,8 @@ body {
   line-height: 1.8;
   color: #333;
   margin-bottom: 10px;
+  padding: 5px;
+  margin-left: 10px;
 }
 
 .m-policy__body-main ol {
@@ -56,4 +58,16 @@ body {
 
 .m-policy__body-main li {
   margin-bottom: 5px;
+}
+
+.m-policy__content {
+  margin: 20px;
+}
+
+.m-policy__body-title {
+  position: relative; /* 必要に応じて調整 */
+  padding-left: 5px; /* テキストの左側に余白を追加 */
+  border-left: 6px solid orange; /* 太めの縦線 */
+  font-size: 1.5rem; /* タイトルのフォントサイズ */
+  font-weight: bold; /* 太字 */
 }

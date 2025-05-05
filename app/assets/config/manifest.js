@@ -10,3 +10,4 @@
 //= link privacy_policy.css
 //= link contact.css
 //= link _search.css
+//= link leaflet-map.js

@@ -43,3 +43,20 @@ body {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 上下の要素を均等に配置 */
+  height: 100%; /* 高さを揃える */
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap; /* カードを折り返し可能にする */
+}
+
+.col-md-4 {
+  display: flex;
+  flex-direction: column;
+}
