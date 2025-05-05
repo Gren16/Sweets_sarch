@@ -13,8 +13,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "static_pages#top"
   post "create_store", to: "static_pages#create_store"
-  get '/stores/:id', to: 'static_pages#show', as: 'store'
-  get '/stores/search', to: 'static_pages#search', as: 'stores_search'
+  get "/stores/:id", to: "static_pages#show", as: "store"
   resources :users, only: %i[new create]
   get "login", to: "user_sessions#new"
   post "login", to: "user_sessions#create"
