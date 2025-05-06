@@ -44,7 +44,7 @@ class RoutesController < ApplicationController
   end
 
   def fetch_routes
-    api_key = ENV['GOOGLE_MAP_API_KEY']
+    api_key = ENV["GOOGLE_MAP_API_KEY"]
     origin = params[:origin]
     destination = params[:destination]
     waypoints = params[:waypoints]
