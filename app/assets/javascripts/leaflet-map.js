@@ -70,7 +70,7 @@ async function findSweets(location) {
 
 async function fetchPlaces(location, query) {
   const [lat, lon] = location;
-  const radius = 5500; // 半径4500m
+  const radius = 2500; // 半径4500m
 
   // Overpass APIを利用して周辺の場所を検索
   const url = `https://overpass-api.de/api/interpreter?data=[out:json];node${query}(around:${radius},${lat},${lon});out body;`;

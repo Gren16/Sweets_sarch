@@ -5,7 +5,7 @@
         <h5 class="card-title"><%= bookmark.store.name %></h5>
         <div class="form-check">
           <%= check_box_tag "bookmark_ids[]", bookmark.id, false, class: "form-check-input", id: "bookmark_#{bookmark.id}" %>
-          <%= label_tag "bookmark_#{bookmark.id}", "選択", class: "form-check-label" %>
+          <%= label_tag "bookmark_#{bookmark.id}", "ルート作成したいお店をチェック", class: "form-check-label" %>
         </div>
       </div>
       <hr>
