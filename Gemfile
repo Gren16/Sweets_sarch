@@ -55,7 +55,7 @@ gem "rails-i18n", "~> 7.0.0"
 
 gem "draper", "4.0.2"
 
-gem "ransack", "4.2.1"
+gem "ransack", "4.3.0"
 
 gem "leaflet-rails"
 
