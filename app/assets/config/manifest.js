@@ -11,3 +11,7 @@
 //= link contact.css
 //= link _search.css
 //= link leaflet-map.js
+//= link pagination.css
+//= link new_route.css
+//= link new_sessions.css
+//= link show_route.css

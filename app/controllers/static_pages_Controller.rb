@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
 
   def top
     @q = Store.ransack(params[:q])
-    @stores = @q.result(distinct: true).page(params[:page]).per(12)
+    @stores = @q.result(distinct: true).page(params[:page]).per(3)
   end
 
   def create_store

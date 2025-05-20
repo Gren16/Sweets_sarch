@@ -43,7 +43,6 @@ nav ul li a {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-align: center;
 }
 
 @media (max-width: 768px) {
@@ -79,4 +78,13 @@ nav ul li a {
 
 .navbar {
   background-color: #fffacd !important; /* 薄い黄色に変更 */
+}
+
+@media (min-width: 1200px) {
+  span {
+    margin: 0; /* マージンをリセット */
+    flex: 1;
+    position: relative;
+    left: 130px;
+  }
 }

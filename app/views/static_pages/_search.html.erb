@@ -1,18 +1,18 @@
 <%= stylesheet_link_tag "_search", media: "all" %>
-<div class="row">
-  <div class="col-lg-10 offset-lg-1">
-    <%= search_form_for q, url: url, method: :get, html: { class: "d-flex align-items-center" } do |f| %>
-      <div class="form-group flex-grow-1" data-controller="autocomplete" data-autocomplete-url-value="<%= search_autocomplete_path %>">
-        <%= f.search_field :name_or_address_cont, id: "name_or_address_cont",
-              class: "form-control",
-              placeholder: "店名または住所を入力してください",
-              data: { action: "input->autocomplete#search", autocomplete_target: "input" } %>
+<div class="row justify-content-center">
+  <div class="col-lg-10 col-md-12">
+    <%= search_form_for q, url: url, method: :get, html: { class: "search-form-wrapper align-items-center" } do |f| %>
+      <div class="form-group position-relative" data-controller="autocomplete" data-autocomplete-url-value="<%= search_autocomplete_path %>">
+        <div class="search-box">
+          <%= f.search_field :name_or_address_cont, id: "name_or_address_cont",
+                class: "form-control search-input",
+                placeholder: "店名または住所を入力してください",
+                data: { action: "input->autocomplete#search", autocomplete_target: "input" } %>
+          <button type="submit" class="search-icon-button">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
         <ul data-autocomplete-target="results" class="autocomplete-results list-group mt-2"></ul>
-      </div>
-      <div class="form-group mt-2">
-        <%= button_tag(type: "submit", class: "search-button") do %>
-          <i class="fas fa-search"></i>
-        <% end %>
       </div>
     <% end %>
   </div>

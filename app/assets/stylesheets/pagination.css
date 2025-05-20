@@ -1,0 +1,38 @@
+.pagination-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination {
+  display: inline-flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination .page-item {
+  margin: 0 5px; /* ページ番号の間隔を調整 */
+}
+
+.pagination .page-link {
+  font-size: 1.5rem; /* ページ番号のサイズを調整 */
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-radius: 50%; /* 丸くする */
+  padding: 10px 15px;
+  background-color: #fffacd; /* 背景色を黄色に */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pagination .page-link:hover {
+  background-color: #ffc107; /* ホバー時に色を変更 */
+  transform: scale(1.1); /* ホバー時に拡大 */
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #ff6f61; /* 現在のページの背景色 */
+  color: #fff;
+  border-color: #ff6f61;
+}

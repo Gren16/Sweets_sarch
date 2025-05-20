@@ -4,10 +4,34 @@ body {
   font-family: Arial, sans-serif;
 }
 
+.main-container {
+  display: grid;
+  grid-template-columns: 1.5fr 3fr;
+  gap: 20px;
+  padding: 20px;
+  flex: 1 1 100%;
+  max-width: 1200px;
+}
+
 #map {
-  height: 100%;
-  padding: 250px;
-  margin: 100px;
+  height: 75vh;
+  width: 100%;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  left: 0;
+  position: relative;
+}
+
+.grid {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr); /* 縦に3行 */
+  gap: 25px; /* カード間のスペース */
+  overflow-y: auto; /* カードが多い場合スクロール可能 */
+}
+
+.store-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .transportation {
@@ -49,22 +73,96 @@ body {
   flex-direction: column;
   justify-content: space-between; /* 上下の要素を均等に配置 */
   height: 100%; /* 高さを揃える */
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  left: 0;
+  margin: 0;
 }
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.card-text {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+
 
 .row {
   display: flex;
   flex-wrap: wrap; /* カードを折り返し可能にする */
+  gap: 20px;
 }
 
 .col-md-4 {
   display: flex;
   flex-direction: column;
-}
-
-.title {
-  text-align: center;
+  flex: 1 1 calc(33.333% - 20px);
+  box-sizing: border-box;
+  margin: 10px;
 }
 
 .custom-spacing a {
   margin-bottom: 20px;
+}
+
+@media (max-width: 1100px) {
+  .main-container {
+    display: flex;
+    flex-direction: column; /* 検索フォームとMapを縦並びにする */
+    gap: 20px;
+  }
+
+  #map {
+    width: 100%; /* Mapの幅を画面幅に合わせる */
+    height: 50vh; /* Mapの高さを調整 */
+    left: 0; /* 横方向の位置調整をリセット */
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card {
+    width: calc(100% - 20px); /* カードの幅を画面幅に合わせる */
+    margin: 0 auto; /* カードを中央揃え */
+  }
+}
+
+@media (min-width: 1200px) {
+  #map {
+    left: 310px; /* 最大サイズ時のみ left を有効 */
+    height: 73vh;
+    width: 350px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+  }
+
+  .card {
+    left: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 上下の要素を均等に配置 */
+    height: 100%; /* 高さを揃える */
+    width: 150%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    margin: 0;
+  }
 }

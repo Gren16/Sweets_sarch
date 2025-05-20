@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ブックマーク巡回ルート</title>
-  <%= stylesheet_link_tag "top", media: "all" %>
+  <%= stylesheet_link_tag "show_route", media: "all" %>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
   <%= render "shared/header" if logged_in? %>
 
-  <h1 class="title">ブックマーク巡回ルート</h1>
   <div class="row">
     <div class="col-lg-10 offset-lg-1 flex-column d-flex justify-content-between align-items-center custom-spacing">
       <%= link_to "トップページに戻る", root_path, class: "btn btn-primary" %>
@@ -19,12 +19,12 @@
   </div>
 
   <% if @bookmarks.present? %>
-    <div id="map" style="height: 500px;"></div>
+    <div id="map"></div>
     <div id="route-info"></div>
 
     <%= javascript_tag do %>
       document.addEventListener("DOMContentLoaded", function () {
-        const map = L.map("map").setView([<%= @bookmarks.first.store.latitude %>, <%= @bookmarks.first.store.longitude %>], 12);
+        const map = L.map("map", {zoomControl: false,}).setView([<%= @bookmarks.first.store.latitude %>, <%= @bookmarks.first.store.longitude %>], 12);
 
         // OpenStreetMapタイルを追加
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -148,9 +148,20 @@
         const distanceInKm = totalDistance / 1000;
 
         infoDiv.innerHTML = `
-          <h2 class="Timerequired">ルート情報</h2>
-          <p class="Timerequired">所要時間: ${durationInMinutes.toFixed(1)} 分</p>
-          <p class="distance">距離: ${distanceInKm.toFixed(1)} km</p>
+          <div class="card">
+            <div class="route-info-row">
+              <div class="icon-green">
+                <i class="fas fa-clock text-green-500"></i>
+              </div>
+              <p class="Timerequired">予想所要時間: ${durationInMinutes.toFixed(1)} 分</p>
+            </div>
+            <div class="route-info-row">
+              <div class="icon-circle">
+                <i class="fas fa-road text-blue-500"></i>
+              </div>
+              <p class="distance">総距離: ${distanceInKm.toFixed(1)} km</p>
+            </div>
+          </div>
         `;
       }
     <% end %>
