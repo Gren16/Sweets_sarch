@@ -19,13 +19,18 @@ body {
   top: -1px;
 }
 
+.mb-3 {
+  margin: 50px;
+}
+
+.text-link hover {
+  text-decoration: underline;
+}
+
 .text {
   list-style: none;
-  margin: 20px;
+  margin: 10px;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  padding-right: 40px;
 }
 
 .text-link {
@@ -47,31 +52,4 @@ body {
   color: #000;
   margin: 0px;
   text-decoration: underline;
-}
-
-.password-reseet {
-  text-align: center;
-  margin: 15px;
-}
-
-.form-group {
-  margin: 15px;
-}
-
-.text-link hover {
-  text-decoration: underline;
-}
-
-.mb-3 {
-  margin: 50px;
-}
-
-.footer-css {
-  margin: 50px;
-}
-
-.mb-4 {
-  position: relative;
-  top: 80px;
-  margin: 70px;
 }

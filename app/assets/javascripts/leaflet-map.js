@@ -2,8 +2,11 @@ let map;
 const placeCache = new Map();
 
 function initMap() {
+  if (map) {
+    return;
+  }
   // Leafletの地図を初期化
-  map = L.map("map").setView([35.681, 139.767], 13); // 東京駅を中心に設定
+  map = L.map("map", {zoomControl: false,}).setView([35.681, 139.767], 13); // 東京駅を中心に設定
 
   // OpenStreetMapのタイルを追加
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
