@@ -49,8 +49,8 @@ class RoutesController < ApplicationController
     destination = params[:destination]
     waypoints = params[:waypoints]
 
-    if origin.blank? || destination.blank?
-      render json: { error: "Origin and destination are required." }, status: :unprocessable_entity
+    if origin.blank? || destination.blank? || !origin.is_a?(Array) || !destination.is_a?(Array)
+      render json: { error: "Origin and destination must be valid coordinates." }, status: :unprocessable_entity
       return
     end
 
@@ -68,14 +68,30 @@ class RoutesController < ApplicationController
       destination: { location: { latLng: { latitude: destination[0], longitude: destination[1] } } },
       intermediates: waypoints.present? ? waypoints.map { |wp| { location: { latLng: { latitude: wp[0], longitude: wp[1] } } } } : nil,
       travelMode: "DRIVE"
-    }.compact.to_json
+    }.to_json
 
-    response = http.request(request)
+    begin
+      response = http.request(request)
+    rescue StandardError => e
+      Rails.logger.error("HTTP Request failed: #{e.message}")
+      render json: { error: "Failed to communicate with Google API" }, status: :service_unavailable
+      return
+    end
 
     if response.code.to_i == 200
       render json: JSON.parse(response.body), status: :ok
     else
-      render json: { error: "Failed to fetch route from Google API", details: response.body }, status: :unprocessable_entity
+      Rails.logger.error("Google API Error: #{response.body}")
+      render json: { error: "Failed to fetch route from Google API", details: JSON.parse(response.body) }, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def validate_coordinates!(coordinates)
+    unless coordinates.is_a?(Array) && coordinates.size == 2 &&
+           coordinates[0].is_a?(Numeric) && coordinates[1].is_a?(Numeric)
+      raise ArgumentError, "Invalid coordinates format"
     end
   end
 end
