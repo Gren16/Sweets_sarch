@@ -1,5 +1,6 @@
 let map;
 const placeCache = new Map();
+const markerMap = new Map();
 
 function initMap() {
   if (map) {
@@ -37,6 +38,7 @@ function initMap() {
   } else {
     alert("このブラウザは位置情報に対応していません");
   }
+  setupCardClickEvents();
 }
 
 async function findSweets(location) {
@@ -73,7 +75,7 @@ async function findSweets(location) {
 
 async function fetchPlaces(location, query) {
   const [lat, lon] = location;
-  const radius = 2500; // 半径4500m
+  const radius = 4500; // 半径4500m
 
   // Overpass APIを利用して周辺の場所を検索
   const url = `https://overpass-api.de/api/interpreter?data=[out:json];node${query}(around:${radius},${lat},${lon});out body;`;
@@ -154,6 +156,7 @@ async function displayMarker(place, iconType) {
     marker.on("click", () => {
     console.log(`マーカーがクリックされました: ${store.place_id}`);
     });
+    markerMap.set(store.id, marker);
   } catch (error) {
     console.error("情報ウィンドウの表示中にエラーが発生しました:", error.message);
   }
@@ -238,4 +241,45 @@ async function saveStoreToDatabase(place) {
   }
 }
 
-window.onload = initMap;
+function setupCardClickEvents() {
+  const cards = document.querySelectorAll(".card");
+  console.log(`カードの数: ${cards.length}`);
+  cards.forEach((card) => {
+    const storeId = card.getAttribute("data-store-id"); // カードに設定された店舗IDを取得
+    console.log(`カードのstoreId: ${storeId}`);
+    card.addEventListener("click", () => {
+      console.log(`カードがクリックされました: storeId = ${storeId}`);
+      filterMarkers(storeId);
+    });
+  });
+
+  const showAllButton = document.getElementById("show-all-markers");
+  if (showAllButton) {
+    showAllButton.addEventListener("click", () => {
+      showAllMarkers();
+    });
+  }
+}
+
+function filterMarkers(storeId) {
+  console.log(`フィルタリング対象のstoreId: ${storeId}`);
+  markerMap.forEach((marker, id) => {
+    if (id === parseInt(storeId, 10)) {
+      marker.addTo(map); // 対象のマーカーを表示
+      map.setView(marker.getLatLng(), 15);
+    } else {
+      map.removeLayer(marker); // 他のマーカーを非表示
+    }
+  });
+  map.invalidateSize();
+}
+
+function showAllMarkers() {
+  markerMap.forEach((marker) => {
+    marker.addTo(map);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initMap();
+});
