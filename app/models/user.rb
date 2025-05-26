@@ -9,8 +9,8 @@ class User < ApplicationRecord
   validates :reset_password_token, uniqueness: true, allow_nil: true
   validates :password, format: {
     with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i,
-    message: 'は英数字の混合である必要があります'
-  },on: :create
+    message: "は英数字の混合である必要があります"
+  }, on: :create
 
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_stores, through: :bookmarks, source: :store
