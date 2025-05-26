@@ -75,3 +75,21 @@ body {
   top: 80px;
   margin: 70px;
 }
+
+.error-message {
+  color: #dc3545; /* エラーメッセージを赤くする */
+  font-size: 0.875rem; /* 小さめのフォントサイズ */
+  margin-top: 0.25rem; /* ボックスとの間に余白を追加 */
+  position: relative;
+  right: 17%;
+}
+
+@media (min-width: 1200px) {
+  .error-message {
+    color: #dc3545; /* エラーメッセージを赤くする */
+    font-size: 0.875rem; /* 小さめのフォントサイズ */
+    margin-top: 0.25rem; /* ボックスとの間に余白を追加 */
+    position: relative;
+    right: 32%;
+  }
+}

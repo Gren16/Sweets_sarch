@@ -5,10 +5,12 @@
       <h1 class="font-weight-bold">ログイン</h1>
       <%= form_with url: login_path, lacal: true do |f| %>
         <div class="mb-3">
-          <%= f.email_field :email, class: "form-control", placeholder: "メールアドレス" %>
+          <%= f.email_field :email, class: "form-control", id: "user_email", placeholder: "メールアドレス" %>
+          <div class="error-message"></div>
         </div>
         <div class="mb-3">
-          <%= f.password_field :password, class: "form-control", placeholder: "パスワード" %>
+          <%= f.password_field :password, class: "form-control", id: "user_password", placeholder: "パスワード（6文字以上半角英数字のみ）" %>
+          <div class="error-message"></div>
         </div>
         <%= f.submit t(".login"), class: "text-primary btn btn-primary btn-lg", style: "background-color: #ffeb3b; border-color: #ffeb3b; margin: 30px" %>
       <% end %>
@@ -24,4 +26,6 @@
     </div>
   </div>
 </div>
-<%= render "shared/footer" %>
+<div class="footer-css">
+  <%= render "shared/footer" %>
+</div>

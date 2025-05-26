@@ -23,7 +23,7 @@
     <div id="route-info"></div>
 
     <%= javascript_tag do %>
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("turbo:load", function () {
         const map = L.map("map", {zoomControl: false,}).setView([<%= @bookmarks.first.store.latitude %>, <%= @bookmarks.first.store.longitude %>], 12);
 
         // OpenStreetMapタイルを追加
@@ -38,12 +38,18 @@
           const currentLocation = [position.coords.latitude, position.coords.longitude];
 
           // Waypointsの設定（23箇所まで制限）
-          const waypoints = bookmarks.slice(0, 23).map(bookmark => [bookmark.latitude, bookmark.longitude]);
+          const waypoints = bookmarks
+            .map(bookmark => [bookmark.latitude, bookmark.longitude])
+            .filter((point, index, self) =>
+              self.findIndex(p => p[0] === point[0] && p[1] === point[1]) === index // 重複を削除
+            );
+          console.log("Waypoints:", waypoints);
+
 
           // 全てのマーカーを作成
           const markers = [
             { name: "現在地", position: currentLocation },
-            ...bookmarks.slice(0, 23).map(bookmark => ({ name: bookmark.name, position: [bookmark.latitude, bookmark.longitude] }))
+            ...bookmarks.map(bookmark => ({ name: bookmark.name, position: [bookmark.latitude, bookmark.longitude] }))
           ];
 
           // マーカーを地図に追加
@@ -67,10 +73,14 @@
           origin: origin,
           destination: waypoints[waypoints.length - 1], // 最終地点
           waypoints: waypoints.slice(0, waypoints.length - 1).map(waypoint => ({
-            location: { latLng: { latitude: waypoint[0], longitude: waypoint[1] } }
+            location: {
+              latLng: { latitude: waypoint[0], longitude: waypoint[1] }
+            }
           })),
           travelMode: "DRIVE"
         };
+
+        console.log("Request Data:", requestData);
 
         fetch(endpoint, {
           method: "POST",
@@ -82,7 +92,11 @@
         })
           .then(response => response.json())
           .then(data => {
-            console.log("API Response:", JSON.stringify(data, null, 2));
+            console.log("API Response:", data);
+            if (data.error) {
+              console.error("API Error:", data.error.message);
+              alert(`エラーが発生しました: ${data.error.message}`);
+            }
             if (data.routes && data.routes.length > 0) {
               drawRouteOnMap(data.routes[0], map);
               displayRouteInfo(data.routes[0]);
@@ -91,7 +105,7 @@
             }
           })
           .catch(error => {
-            console.error("エラー:", error);
+            console.error("API通信エラー:", error);
           });
       }
 

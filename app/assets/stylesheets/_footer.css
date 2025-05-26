@@ -7,8 +7,8 @@ footer {
 /* コピーライトのコンテナー */
 .copyright-container {
   display: flex;
-  position: relative;
-  right: 2%;
+  justify-content: center; /* 水平中央揃え */
+  align-items: center; /* 垂直中央揃え */
   padding: 20px;
 }
 
@@ -39,11 +39,14 @@ footer {
   text-decoration: underline;
 }
 
+body.top-page .copyright-container {
+  position: relative;
+  right: 2%;
+}
+
 @media (min-width: 1200px) {
-  .copyright-container {
-    display: flex;
+  body.top-page .copyright-container {
     position: relative;
     right: 10%;
-    padding: 20px;
   }
 }

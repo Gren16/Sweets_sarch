@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <meta name="csrf-token" content="<%= form_authenticity_token %>">
 </head>
-<body>
+<body class="top-page">
   <% if logged_in? %>
     <%= render "shared/header" %>
   <% else %>
@@ -26,7 +26,7 @@
       <div class="grid">
         <% @stores.each do |store| %>
           <div class="col-md-4 mb-4">
-            <div class="card">
+            <div class="card" data-store-id="<%= store.id %>">
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                   <h5 class="card-title"><%= store.name %></h5>
@@ -51,12 +51,15 @@
           </div>
         <% end %>
       </div>
+      <button id="show-all-markers" class="m-btn btn btn-primary mt-3">全て表示</button>
     </div>
   </div>
   <div class="pagination-container">
     <%= paginate @stores, theme: "bootstrap-5" %>
   </div>
-  <%= render "shared/footer" %>
+  <div class="footer-css">
+    <%= render "shared/footer" %>
+  </div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <%= javascript_include_tag 'leaflet-map' %>
 </body>
