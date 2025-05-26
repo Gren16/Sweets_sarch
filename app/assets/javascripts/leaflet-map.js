@@ -3,9 +3,6 @@ const placeCache = new Map();
 const markerMap = new Map();
 
 function initMap() {
-  if (map) {
-    return;
-  }
   // Leafletの地図を初期化
   map = L.map("map", {zoomControl: false,}).setView([35.681, 139.767], 13); // 東京駅を中心に設定
 
@@ -280,6 +277,6 @@ function showAllMarkers() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("turbo:load", () => {
   initMap();
 });

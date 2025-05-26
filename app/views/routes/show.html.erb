@@ -23,7 +23,7 @@
     <div id="route-info"></div>
 
     <%= javascript_tag do %>
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("turbo:load", function () {
         const map = L.map("map", {zoomControl: false,}).setView([<%= @bookmarks.first.store.latitude %>, <%= @bookmarks.first.store.longitude %>], 12);
 
         // OpenStreetMapタイルを追加

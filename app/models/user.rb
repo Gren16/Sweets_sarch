@@ -7,6 +7,10 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 20 }
   validates :email, presence: true, uniqueness: true
   validates :reset_password_token, uniqueness: true, allow_nil: true
+  validates :password, format: {
+    with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i,
+    message: 'は英数字の混合である必要があります'
+  },on: :create
 
   has_many :bookmarks, dependent: :destroy
   has_many :bookmark_stores, through: :bookmarks, source: :store

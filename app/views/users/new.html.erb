@@ -3,18 +3,22 @@
   <div class="row">
     <div class="col_md-10 col-lg-8 mx-auto text-center">
       <h1 class="font-weight-bold">新規ユーザー登録</h1>
-      <%= form_with model: @user do |f| %>
+      <%= form_with model: @user, local: true do |f| %>
         <div class="mb-3">
-          <%= f.text_field :name, class: "form-control", placeholder: "ニックネーム" %>
+          <%= f.text_field :name, class: "form-control", id: "user_name", placeholder: "ニックネーム" %>
+          <div class="error-message"></div>
         </div>
         <div class="mb-3">
-          <%= f.email_field :email, class: "form-control", placeholder: "メールアドレス" %>
+          <%= f.email_field :email, class: "form-control", id: "user_email", placeholder: "メールアドレス" %>
+          <div class="error-message"></div>
         </div>
         <div class="mb-3">
-          <%= f.password_field :password, class: "form-control", placeholder: "パスワード" %>
+          <%= f.password_field :password, class: "form-control", id: "user_password", placeholder: "パスワード" %>
+          <div class="error-message"></div>
         </div>
         <div class="mb-3">
-          <%= f.password_field :password_confirmation, class: "form-control", placeholder: "パスワード確認" %>
+          <%= f.password_field :password_confirmation, class: "form-control", id: "user_password_confirmation", placeholder: "パスワード確認" %>
+          <div class="error-message"></div>
         </div>
         <%= f.submit "登録", class: "text-primary btn btn-primary btn-lg", style: "background-color: #ffeb3b; border-color: #ffeb3b; margin: 30px" %>
       <% end %>

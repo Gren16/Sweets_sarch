@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <meta name="csrf-token" content="<%= form_authenticity_token %>">
 </head>
-<body>
+<body class="top-page">
   <% if logged_in? %>
     <%= render "shared/header" %>
   <% else %>
@@ -57,7 +57,9 @@
   <div class="pagination-container">
     <%= paginate @stores, theme: "bootstrap-5" %>
   </div>
-  <%= render "shared/footer" %>
+  <div class="footer-css">
+    <%= render "shared/footer" %>
+  </div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <%= javascript_include_tag 'leaflet-map' %>
 </body>
