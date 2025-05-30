@@ -47,6 +47,8 @@ nav ul li a {
 
 .explanation-link a {
   margin-right: 12px;
+  text-decoration: none;
+  color: #000;
 }
 
 @media (max-width: 768px) {
