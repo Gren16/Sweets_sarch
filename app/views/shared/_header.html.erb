@@ -13,6 +13,9 @@
         <li class="nav-item">
           <%= link_to t("header.logout"), logout_path, class: "nav-link", data: { turbo_method: :delete } %>
         </li>
+        <div class="explanation-link">
+          <a data-turbo="false" href="/explanation">使い方</a>
+        </div>
       </ul>
     </div>
   </nav>

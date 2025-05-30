@@ -16,3 +16,4 @@
 //= link new_sessions.css
 //= link show_route.css
 //= link _bookmarks.css
+//= link explanation.css

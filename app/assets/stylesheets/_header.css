@@ -45,6 +45,12 @@ nav ul li a {
   -webkit-text-fill-color: transparent;
 }
 
+.explanation-link a {
+  margin-right: 12px;
+  text-decoration: none;
+  color: #000;
+}
+
 @media (max-width: 768px) {
 
   .navbar-toggler {
