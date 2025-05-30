@@ -19,3 +19,10 @@ body {
 .custom-spacing a {
   margin-bottom: 20px;
 }
+
+@media (min-width: 1200px) {
+  .copyright-container {
+    position: relative;
+    right: 9%;
+  }
+}
