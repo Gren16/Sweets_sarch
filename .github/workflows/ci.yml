@@ -63,6 +63,11 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Prepare the database
+        run: |
+          bundle exec rails db:create RAILS_ENV=test
+          bundle exec rails db:schema:load RAILS_ENV=test
+
       - name: Run RSprc tests
         env:
           RAILS_ENV: test
