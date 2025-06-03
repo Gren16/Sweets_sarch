@@ -6,8 +6,6 @@ services:
     environment:
       TZ: Asia/Tokyo
       POSTGRES_PASSWORD: password
-      POSTGRES_USER: postgres
-      POSTGRES_DB: myapp_test
     volumes:
       - postgresql_data:/var/lib/postgresql
     ports:
