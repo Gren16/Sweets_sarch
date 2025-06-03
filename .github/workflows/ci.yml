@@ -42,10 +42,11 @@ jobs:
 
     services:
       postgres:
-        image: postgres
+        image: postgres:16
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: coat
+          POSTGRES_PASSWORD: Gren1608
+          POSTGRES_DB: myapp_test
         ports:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -63,6 +64,14 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Bundler and gem install
         run: |
           gem install bundler
@@ -70,6 +79,7 @@ jobs:
 
       - name: Prepare the database
         run: |
+          cp config/database.yml.ci config/database.yml
           bundle exec rails db:create RAILS_ENV=test
           bundle exec rails db:migrate RAILS_ENV=test
 
