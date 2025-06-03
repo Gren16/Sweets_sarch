@@ -32,7 +32,7 @@ RSpec.describe User, type: :model do
 
     context "既存ユーザーのパスワード変更時" do
       it "passwordが6文字未満の場合、無効になる" do
-        user = create(:user, password: "Pass1", password_confirmation: "Pass1")
+        user = create(:user, password: "password123", password_confirmation: "password123")
         user.password = "Pass1"
         expect(user).not_to be_valid
         expect(user.errors[:password]).to include("は6文字以上で入力してください")
@@ -83,8 +83,8 @@ RSpec.describe User, type: :model do
     end
 
     it "emailが被った場合uniquenessのバリデーションが機能してinvalidになるか" do
-      user = create(:user, email: "test@example.com", password: "123456", password_confirmation: "123456")
-      user_with_another_user = build(:user, email: "test@example.com", password: "123456", password_confirmation: "123456")
+      user = create(:user, email: "test@example.com", password: "password123", password_confirmation: "password123")
+      user_with_another_user = build(:user, email: "test@example.com", password: "password123", password_confirmation: "password123")
 
       expect(user_with_another_user).not_to be_valid
       expect(user_with_another_user.errors[:email]).to eq [ "はすでに存在します" ]
