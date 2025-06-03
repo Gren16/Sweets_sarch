@@ -1,9 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Bookmark, type: :model do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, password: "Password123", password_confirmation: "Password123") }
   let(:store) { create(:store) }
   let(:bookmark) { build(:bookmark, user: user, store: store) }
+
+  it "user_idとstore_idがあれば有効であること" do
+    bookmark = Bookmark.new(user_id: user.id, store_id: store.id)
+    expect(bookmark).to be_valid
+  end
 
   describe "バリデーションのテスト" do
     it "user_idとstore_idがあれば有効であること" do
