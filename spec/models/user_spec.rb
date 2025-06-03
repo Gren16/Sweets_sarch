@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe "バリデーションチェック" do
     it "設定したすべてのバリデーションが機能しているか" do
-      user = create(:user, password: "password", password_confirmation: "password")
+      user = create(:user, password: "password123", password_confirmation: "password123")
       expect(user).to be_valid
       expect(user.errors).to be_empty
     end
 
     it "emailが被らない場合にバリデーションエラーが起きないか" do
       user = User.create(email: "test@example.com")
-      user_with_another_user = build(:user, email: "user@example.com", password: "password", password_confirmation: "password")
+      user_with_another_user = build(:user, email: "user@example.com", password: "password123", password_confirmation: "password123")
 
       expect(user_with_another_user).to be_valid
       expect(user_with_another_user.errors).to be_empty
@@ -18,30 +18,30 @@ RSpec.describe User, type: :model do
 
     context "新規ユーザー作成時" do
       it "passwordが6文字未満の場合、無効になる" do
-        user = build(:user, password: "12345", password_confirmation: "123456")
-        user.password = "12345"
+        user = build(:user, password: "Pass1", password_confirmation: "Pass1")
+        user.password = "Pass1"
         expect(user).not_to be_valid
         expect(user.errors[:password]).to include("は6文字以上で入力してください")
       end
 
       it "passwordが6文字以上の場合、有効になる" do
-        user = build(:user, password: "123456", password_confirmation: "123456")
+        user = build(:user, password: "Password123", password_confirmation: "Password123")
         expect(user).to be_valid
       end
     end
 
     context "既存ユーザーのパスワード変更時" do
       it "passwordが6文字未満の場合、無効になる" do
-        user = create(:user, password: "123456", password_confirmation: "123456")
-        user.password = "12345"
+        user = create(:user, password: "Pass1", password_confirmation: "Pass1")
+        user.password = "Pass1"
         expect(user).not_to be_valid
         expect(user.errors[:password]).to include("は6文字以上で入力してください")
       end
 
       it "passwordが6文字以上の場合、有効になる" do
-        user = create(:user, password: "123456", password_confirmation: "123456")  # まず有効なパスワードでユーザー作成
-        user.password = "1234567"
-        user.password_confirmation = "1234567"
+        user = create(:user, password: "Password123", password_confirmation: "Password123")  # まず有効なパスワードでユーザー作成
+        user.password = "Password124"
+        user.password_confirmation = "Password124"
         expect(user).to be_valid
       end
     end
