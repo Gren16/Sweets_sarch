@@ -82,6 +82,7 @@ test:
 #
 production:
   <<: *default
-  database: myapp_production
-  username: myapp
+  host: dpg-d1l32aur433s73d6vmig-a
+  database: test_db_jdks
+  username: harita_mikiya
   password: <%= ENV["MYAPP_DATABASE_PASSWORD"] %>
