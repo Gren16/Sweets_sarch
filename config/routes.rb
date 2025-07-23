@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get "login", to: "user_sessions#new"
   post "login", to: "user_sessions#create"
   delete "logout", to: "user_sessions#destroy"
+  post '/static_pages/:id/bookmarks', to: 'static_pages#add_bookmark'
 
   resources :stores
   resources :bookmarks, only: %i[create destroy]
