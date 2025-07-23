@@ -27,6 +27,7 @@ function initMap() {
 
         // スイーツ店を検索
         findSweets(currentLocation);
+        fetchAndDisplayNearbyCards(lat, lon);
       },
       () => {
         alert("位置情報の取得に失敗しました");
@@ -142,16 +143,47 @@ async function displayMarker(place, iconType) {
     const store = await response.json();
 
     const markerOptions = customIcon ? { icon: customIcon } : {};
+    const popupId = `bookmark-btn-${store.id}`;
     const marker = L.marker([store.latitude, store.longitude], markerOptions)
       .addTo(map)
       .bindPopup(`
+        <button class="bookmark-btn" id="${popupId}" data-store-id="${store.id}">★</button>
         <strong>${iconType} ${store.name}</strong><br>
         電話番号: ${store.phone_number || "電話番号不明"}<br>
         住所: ${store.address || "住所不明"}<br>
         ${store.web_site ? `<a href="${store.web_site}" target="_blank" rel="noopener noreferrer">公式サイト</a>` : "Webサイト不明"}
       `);
-    marker.on("click", () => {
-    console.log(`マーカーがクリックされました: ${store.place_id}`);
+    marker.on("popupopen", function () {
+      const btn = document.getElementById(popupId);
+      if (btn) {
+        btn.addEventListener("click", async function (e) {
+          e.preventDefault();
+          btn.disabled = true;
+          btn.textContent = "★...";
+          try {
+            const res = await fetch(`/static_pages/${store.id}/bookmarks`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+              }
+            });
+            if (res.ok) {
+              btn.textContent = "★ブックマーク済";
+              btn.disabled = true;
+            } else if (res.status === 401) {
+              btn.textContent = "ログイン必要";
+              btn.disabled = false;
+            } else {
+              btn.textContent = "エラー";
+              btn.disabled = false;
+            }
+          } catch (err) {
+            btn.textContent = "通信エラー";
+            btn.disabled = false;
+          }
+        });
+      }
     });
     markerMap.set(store.id, marker);
   } catch (error) {

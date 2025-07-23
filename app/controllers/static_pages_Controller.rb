@@ -37,6 +37,12 @@ class StaticPagesController < ApplicationController
     @bookmark_stores = @q.result(distinct: true).page(params[:page]).per(12)
   end
 
+  def add_bookmark
+    store = Store.find(params[:id])
+    current_user.bookmarks.find_or_create_by(store: store)
+    render json: { status: "bookmarked", store_id: store.id }
+  end
+
   def autocomplete
     if params[:q].blank?
       render json: []
