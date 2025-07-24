@@ -1,0 +1,44 @@
+.modal-dialog {
+  max-width: 600px; /* 例: 最大幅を600pxに */
+  margin: 1.75rem auto;
+}
+
+.modal-title {
+  width: 100%;
+  text-align: center;
+}
+
+.m-explanation-image {
+  max-width: 100%;
+  height: auto;
+  display: block;      /* 必要なら中央寄せ用 */
+  margin-left: auto;   /* 必要なら中央寄せ用 */
+  margin-right: auto;
+}
+
+@media (max-width: 1100px) {
+  .startup-modal .card {
+    /* モーダルだけのスタイル */
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .button-center {
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .startup-modal .card {
+  /* モーダルだけのスタイル */
+  max-width: 400px;
+  left: 15%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  }
+
+  .button-center {
+    margin: 0 auto;
+  }
+}
