@@ -17,3 +17,5 @@
 //= link show_route.css
 //= link _bookmarks.css
 //= link explanation.css
+//= link startup_modal.js
+//= link _startup_modal.css
